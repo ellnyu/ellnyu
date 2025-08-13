@@ -76,10 +76,10 @@ func main() {
 			</style>
 		</head>
 		<body>
-			<h1>Halla babyyyy</h1>
-			<p>Jeg lever og jeg bør jobbe med jobb og ikke dette men dgb</p>
+			<h1>Halla babyyyy boomsi</h1>
+			<p>Nettsida mi lever og jeg bør jobbe med jobb og ikke dette men dgb</p>
 			<div class="host">Host: %s</div>
-			<a href="https://ellnyu.com" class="button">Gå tilbake til nettsiden min?</a>
+			<a href="https://dailybunny.org/" class="button">Magisk knapp</a>
 		</body>
 		</html>
 		`, r.Host)
@@ -88,4 +88,3 @@ func main() {
 	log.Printf("Listening on port %s...\n", port)
 	log.Fatal(http.ListenAndServe(":"+port, nil))
 }
-
