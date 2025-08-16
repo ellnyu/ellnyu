@@ -33,8 +33,8 @@ func main() {
 
 	c := cors.New(cors.Options{
 		AllowedOrigins: []string{"http://localhost:3000",
-			"https://ellnyu-1.onrender.com",
-			"https://ellnyu.com"},
+			"https://ellnyu-frontend.onrender.com",
+			"www.ellnyu.com"},
 		AllowedMethods: []string{"GET", "POST", "OPTIONS"},
 		AllowedHeaders: []string{"*"},
 	})
