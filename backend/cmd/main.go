@@ -34,6 +34,8 @@ func main() {
 	c := cors.New(cors.Options{
 		AllowedOrigins: []string{"http://localhost:3000",
 			"https://ellnyu-1.onrender.com"},
+		AllowedMethods: []string{"GET", "POST", "OPTIONS"},
+		AllowedHeaders: []string{"*"},
 	})
 	log.Printf("Server running on port %s...", port)
 	log.Fatal(http.ListenAndServe(":8080", c.Handler(mux)))
