@@ -32,7 +32,8 @@ func main() {
 	mux.HandleFunc("/instagram/posts", instagram.PostsHandler(cfg))
 
 	c := cors.New(cors.Options{
-		AllowedOrigins: []string{"http://localhost:3000"},
+		AllowedOrigins: []string{"http://localhost:3000",
+			"https://ellnyu-1.onrender.com"},
 	})
 	log.Printf("Server running on port %s...", port)
 	log.Fatal(http.ListenAndServe(":8080", c.Handler(mux)))
