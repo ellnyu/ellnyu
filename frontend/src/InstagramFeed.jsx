@@ -8,7 +8,7 @@ export default function InstagramFeed({ cardStyle }) {
   useEffect(() => {
     async function fetchPosts() {
       try {
-        const res = await fetch(`${process.env.REACT_API_URL}/instagram/posts`);
+          const res = await fetch(`${process.env.REACT_APP_API_URL}/instagram/posts`);
         if (!res.ok) throw new Error("Failed to fetch posts");
         const data = await res.json();
         setPosts(data.data || []);
