@@ -1,4 +1,5 @@
-@use '@/styles/variables' as vars; 
+@use '@/styles/variables' as vars;
+@use '@/styles/fonts' as *; // Ensure all @font-face are loaded
 
 .navbar {
   background: linear-gradient(90deg, vars.$color-lavender, vars.$color-slate);
@@ -6,34 +7,87 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
+}
 
-  .logo {
-    font-size: 2rem;
-    color: vars.$color-navy;
+.logo {
+  font-size: 3rem;
+  color: vars.$color-navy;
+  font-family: 'Melodrama-Bold';
+}
+
+/* Desktop nav */
+.navLinks {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+
+  li a {
+    color: vars.$color-cream;
+    font-size: 1.4rem;
+    text-decoration: none;
+    transition: 0.3s ease;
     font-family: 'Melodrama-Bold';
-  }
 
-  ul {
-    list-style: none;
-    display: flex;
-    gap: 2rem;
-
-    li {
-      a {
-        color: vars.$color-cream;
-        font-size: 1.2rem;
-        text-decoration: none;
-        transition: 0.3s ease;
-        font-family: 'Melodrama-Bold'; 
-
-        &:hover {
-          color: vars.$color-slate;
-          border-bottom: 2px solid vars.$color-cream;
-          padding-bottom: 2px;
-        }
-      }
+    &:hover {
+      color: vars.$color-purpleblue;
+      border-bottom: 2px solid vars.$color-purpleblue;
+      padding-bottom: 2px;
     }
   }
 }
 
+/* Hamburger button */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 24px;
+  height: 18px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+
+  span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background: vars.$color-cream;
+    border-radius: 2px;
+  }
+}
+@media (max-width: 768px) {
+  .navLinks {
+    display: none; /* hidden by default */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100%;
+    background: vars.$color-navy;
+    z-index: 1000;
+
+    li a {
+      font-size: 1.5rem;
+      color: vars.$color-cream;
+    }
+  }
+
+  .navLinks.open {
+    display: flex; /* show when open */
+  }
+
+  .hamburger {
+    display: flex;
+    z-index: 1100; /* above the menu */
+  }
+}
 
