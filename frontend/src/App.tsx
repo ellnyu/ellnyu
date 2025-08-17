@@ -5,7 +5,7 @@ import Home from "./pages/Home";
 import Posts from "./pages/Posts";
 import About from "./pages/About";
 import Suggestions from "./pages/Suggestions";
-import Messages from "./pages/Messages";
+import MessagePage from "./pages/MessagePage/MessagePage";
 import "./App.scss"; // global styles
 
 const App: React.FC = () => {
@@ -22,7 +22,7 @@ const App: React.FC = () => {
             <Route path="/instagram-posts" element={<Posts />} />
             <Route path="/om-meg" element={<About />} />
             <Route path="/forslag" element={<Suggestions />} />
-            <Route path="/meldinger" element={<Messages />} />
+            <Route path="/meldinger" element={<MessagePage/>} />
           </Routes>
         </main>
 
