@@ -5,8 +5,8 @@ import styles from "./Posts.module.scss";
 const Posts: React.FC = () => {
   const { posts, loading, error } = useInstagramPosts();
 
-  if (loading) return <p>Loading posts...</p>;
-  if (error) return <p>Error: {error}</p>;
+  if (loading) return <p>Henter instagram posts...</p>;
+  if (error) return <p>HEHEHE feeil: {error}</p>;
 
   return (
     <div className={styles.postsGrid}>

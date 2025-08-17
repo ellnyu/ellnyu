@@ -1,0 +1,67 @@
+.review-page {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  font-family: 'Boska', sans-serif;
+
+  h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .review-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 3rem;
+
+    input,
+    textarea {
+      padding: 0.75rem 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-family: inherit;
+      font-size: 1rem;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    button {
+      background-color: #6a5acd;
+      color: white;
+      font-weight: bold;
+      padding: 0.75rem 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+
+      &:hover {
+        background-color: #5548a1;
+      }
+    }
+  }
+
+  .comments-list {
+    .comment {
+      padding: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      margin-bottom: 1rem;
+      background-color: #f9f9f9;
+
+      h4 {
+        margin: 0 0 0.5rem 0;
+        font-weight: 700;
+      }
+
+      p {
+        margin: 0;
+      }
+    }
+  }
+}
+

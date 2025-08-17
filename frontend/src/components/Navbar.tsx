@@ -5,12 +5,14 @@ import styles from "./Navbar.module.scss"; // using SCSS module
 const Navbar: React.FC = () => {
   return (
     <nav className={styles.navbar}>
-      <div className={styles.logo}>Ellen Yu</div>
+      <div className={styles.logo}>
+        <Link to="/">Ellen Yu</Link>
+      </div>
       <ul>
-        <li><Link to="/">Hjem baby</Link></li>
-        <li><Link to="/posts">Posts</Link></li>
-        <li><Link to="/about">Om meg</Link></li>
-        <li><Link to="/suggestions">Forslaaag</Link></li>
+        <li><Link to="/instagram-posts">Posts</Link></li>
+        <li><Link to="/forslag">Forslaaag</Link></li>
+        <li><Link to="/meldinger">Meldinger</Link></li>
+        <li><Link to="/om-meg">Om meg</Link></li>
       </ul>
     </nav>
   );
