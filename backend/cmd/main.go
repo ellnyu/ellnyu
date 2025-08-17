@@ -12,6 +12,7 @@ import (
 	"github.com/ellnyu/ellnyu/backend/internal/db"
 	"github.com/ellnyu/ellnyu/backend/internal/instagram"
 	messages "github.com/ellnyu/ellnyu/backend/internal/messages"
+	suggestions "github.com/ellnyu/ellnyu/backend/internal/suggestions"
 	"github.com/joho/godotenv"
 	"github.com/rs/cors"
 )
@@ -51,6 +52,16 @@ func main() {
 			messages.CreateMessageHandler(w, r)
 		} else if r.Method == http.MethodGet {
 			messages.GetMessagesHandler(w, r)
+		} else {
+			http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
+		}
+	})
+
+	mux.HandleFunc("/suggestions", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method == http.MethodPost {
+			suggestions.CreateSuggestionHandler(w, r)
+		} else if r.Method == http.MethodGet {
+			suggestions.GetSuggestionsHandler(w, r)
 		} else {
 			http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
 		}
@@ -100,4 +111,3 @@ func main() {
 
 	log.Println("Server exited cleanly")
 }
-

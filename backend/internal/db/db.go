@@ -45,6 +45,12 @@ func InitDB() error {
 		message TEXT NOT NULL,
 		created_at TIMESTAMP DEFAULT NOW()
 	);
+
+    CREATE TABLE IF NOT EXISTS ellnyu.suggestions (
+        id SERIAL PRIMARY KEY,
+        suggestion TEXT NOT NULL,
+    	created_at TIMESTAMP DEFAULT NOW()
+    );
 	`
 
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
@@ -59,8 +65,7 @@ func InitDB() error {
 	return nil
 }
 
-// InsertReview inserts a new review into the reviews table
-func InsertReview(name string, message string) error {
+func InsertMessage(name string, message string) error {
 	query := `
 	INSERT INTO ellnyu.messages (name, message)
 	VALUES ($1, $2)
@@ -77,3 +82,19 @@ func InsertReview(name string, message string) error {
 	return nil
 }
 
+func InsertSuggestion(name string, message string) error {
+	query := `
+	INSERT INTO ellnyu.suggestions (suggestion)
+	VALUES ($1)
+	`
+
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	_, err := Pool.Exec(ctx, query, name, message)
+	if err != nil {
+		return fmt.Errorf("failed to insert review: %v", err)
+	}
+
+	return nil
+}
