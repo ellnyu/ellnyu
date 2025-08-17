@@ -1,8 +1,4 @@
-// Import variables if you have them
-@import '@/styles/variables';
-
-// Import custom font (assuming boska.css is already imported in App or here)
-@import '@/styles/fonts.css';
+@use '@/styles/variables' as vars;
 
 .container {
   max-width: 600px;
@@ -31,7 +27,7 @@
 
 .button {
   padding: 0.5rem 1rem;
-  background-color: $color-navy;
+  background-color: vars.$color-navy;
   color: white;
   border: none;
   border-radius: 0.25rem;
@@ -40,8 +36,8 @@
 }
 
 .button:hover {
-  background-color: $color-light;
-  color: $color-navy;
+  background-color: vars.$color-light;
+  color: vars.$color-navy;
 }
 
 .suggestionsTitle {

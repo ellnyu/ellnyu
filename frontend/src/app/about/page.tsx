@@ -1,4 +1,3 @@
-import Navbar from "@/components/navbar/Navbar";
 import styles from "./page.module.scss";
 
 export default function About() {
@@ -6,7 +5,7 @@ export default function About() {
     <div className={styles.appLayout}>
       <main className={styles.mainContent}>
         <h2>Ellen Yu hvem er det?</h2>
-          <p>En trist jente fordi siden hennes suger:'(</p>
+          <p>En trist jente fordi siden hennes suger yay</p>
 
             <img
           src="/images/ellen.JPEG" // path in public folder

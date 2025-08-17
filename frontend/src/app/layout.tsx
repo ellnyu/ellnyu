@@ -1,5 +1,5 @@
 import Providers from "./providers";
-import "../styles/globals.scss";
+import "../styles/globals.scss"; // global variables & base styles
 import Navbar from "@/components/navbar/Navbar";
 
 export const metadata = { title: "Ellens søte app" };

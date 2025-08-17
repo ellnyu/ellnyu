@@ -1,10 +1,5 @@
-// src/styles/index.scss
-
-// Import variables if you have them
-@import './styles/variables';
-
-// Import custom font (assuming boska.css is already imported in App or here)
-@import './styles/fonts.css';
+@use '@/styles/variables' as vars; // Use namespace `vars`
+@use '@/styles/fonts';
 
 // Global Reset / Base styles
 * {
@@ -16,8 +11,8 @@
 html, body, #root {
   height: 100%;
   font-family: 'Technor-Light', sans-serif; // Use your custom font
-  background-color: $color-cream; // from your variables.scss
-  color: $color-text; // from your variables.scss
+  background-color: vars.$color-cream; // from your variables.scss
+  color: vars.$color-text; // from your variables.scss
 }
 
 // Links
@@ -28,7 +23,7 @@ a {
 
 // Headings
 h1, h2, h3, h4, h5, h6 {
-  font-family: $text-headings;
+  font-family: vars.$text-headings;
   margin: 0 0 1rem 0;
   font-weight: 800;
 }
@@ -38,7 +33,7 @@ p {
   margin-bottom: 1rem;
   font-size: 1.25rem;
   line-height: 1.6;
-  font-family: $text-paragraphs;
+  font-family: vars.$text-paragraphs;
 }
 
 // Main container

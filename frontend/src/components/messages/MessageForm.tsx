@@ -40,9 +40,10 @@ export default function MessagesForm() {
         onChange={(e) => setMessage(e.target.value)}
         required
       />
-      <button type="submit" disabled={mutation.isLoading}>
-        {mutation.isLoading ? "Sender..." : "Send"}
-      </button>
+      <button type="submit" disabled={mutation.isPending}>
+  {mutation.isPending ? "Sender..." : "Send"}
+</button>
+
     </form>
   );
 }
