@@ -7,8 +7,7 @@ export default function About() {
       <main className={styles.mainContent}>
         <h2>Ellen Yu hvem er det?</h2>
           <p>En trist jente fordi siden hennes suger yay</p>
-
-
+          
             <Image
           src="/images/ellen.JPEG" // path in public folder
           alt="Ellen Yu"
