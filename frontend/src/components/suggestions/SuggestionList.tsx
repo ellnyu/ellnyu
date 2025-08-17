@@ -33,7 +33,7 @@ export default function SuggestionsList() {
         <ul>
           {suggestions.map((m) => (
             <li key={m.id}>
-              <strong>{m.name}:</strong> {m.suggestion}{" "}
+               {m.suggestion}{" "}
               <em>({new Date(m.created_at).toLocaleString()})</em>
             </li>
           ))}
