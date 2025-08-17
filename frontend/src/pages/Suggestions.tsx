@@ -6,7 +6,7 @@ interface Suggestion {
   text: string;
 }
 
-const Suggestion: React.FC = () => {
+const Suggestions: React.FC = () => {
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
   const [input, setInput] = useState("");
 
@@ -64,4 +64,4 @@ const Suggestion: React.FC = () => {
   );
 };
 
-export default Suggestion;
+export default Suggestions;
