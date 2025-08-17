@@ -1,0 +1,40 @@
+@import "../../styles/variables";
+@import "../../styles/fonts";
+
+.navbar {
+  background: linear-gradient(90deg, $color-lavender, $color-slate);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .logo {
+    font-size: 2rem;
+    color: $color-navy;
+    font-family: 'Melodrama-Bold';
+  }
+
+  ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+
+    li {
+      a {
+        color: $color-cream;
+        font-size: 1.2rem;
+        text-decoration: none;
+        transition: 0.3s ease;
+        font-family: 'Melodrama-Bold'; 
+
+        &:hover {
+          color: $color-slate;
+          border-bottom: 2px solid $color-cream;
+          padding-bottom: 2px;
+        }
+      }
+    }
+  }
+}
+
+

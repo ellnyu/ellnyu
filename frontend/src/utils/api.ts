@@ -1,4 +1,3 @@
-// src/utils/api.ts
 const API_BASE = process.env.REACT_APP_API_URL || "http://localhost:8080";
 
 // Generic GET request
@@ -29,4 +28,5 @@ export async function apiPost<T>(endpoint: string, body: any): Promise<T> {
 
   return res.json() as Promise<T>;
 }
+
 

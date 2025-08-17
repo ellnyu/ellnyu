@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useState } from "react";
 
 export interface InstagramPost {
@@ -15,7 +17,7 @@ export function useInstagramPosts() {
   useEffect(() => {
     async function fetchPosts() {
       try {
-        const res = await fetch(`${process.env.REACT_APP_API_URL}/instagram/posts`);
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/instagram/posts`);
         if (!res.ok) throw new Error("Failed to fetch posts");
         const data = await res.json();
         setPosts(data.data || []);
@@ -31,4 +33,6 @@ export function useInstagramPosts() {
 
   return { posts, loading, error };
 }
+
+
 
