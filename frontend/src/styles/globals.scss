@@ -46,7 +46,7 @@ button {
 
 html, body, #root {
   height: 100%;
-  font-family: 'Technor-Light', sans-serif; // Use your custom font
+  font-family: 'RX100-Regular', sans-serif; // Use your custom font
   background-color: vars.$color-cream; // from your variables.scss
   color: vars.$color-text; // from your variables.scss
 }
@@ -84,5 +84,15 @@ main {
   font-weight: 900;
 }
 
+input,
+textarea {
+    font-size: 1rem;        // text size
+    font-family: vars.$text-paragraphs;
+    padding: 0.5rem 1rem;   // inner spacing
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: 500px;            // standard desktop width
+    max-width: 100%;         // never overflow parent
+  }
 
 

@@ -28,6 +28,7 @@ const Navbar = () => {
         <li><Link href="/posts">Posts</Link></li>
         <li><Link href="/suggestions">Forslaaag</Link></li>
         <li><Link href="/blog">Innlegg</Link></li>
+        <li><Link href="/books">Bøker</Link></li>
         <li><Link href="/messages">Meldinger</Link></li>
         <li><Link href="/about">Om meg</Link></li>
       </ul>

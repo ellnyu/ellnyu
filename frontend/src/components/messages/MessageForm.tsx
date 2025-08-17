@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiPost } from "@/utils/api";
+import styles from "./MessageForm.module.scss";
 
 export default function MessagesForm() {
   const [name, setName] = useState("");
@@ -13,7 +14,6 @@ export default function MessagesForm() {
     mutationFn: (newMessage: { name: string; message: string }) =>
       apiPost("/messages", newMessage),
     onSuccess: () => {
-      // Rerun the "messages" query to refresh the list
       queryClient.invalidateQueries({ queryKey: ["messages"] });
       setName("");
       setMessage("");
@@ -26,7 +26,7 @@ export default function MessagesForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className={styles.form}>
       <input
         type="text"
         placeholder="Navn"
@@ -41,9 +41,8 @@ export default function MessagesForm() {
         required
       />
       <button type="submit" disabled={mutation.isPending}>
-  {mutation.isPending ? "Sender..." : "Send"}
-</button>
-
+        {mutation.isPending ? "Sender..." : "Send"}
+      </button>
     </form>
   );
 }

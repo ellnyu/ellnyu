@@ -1,0 +1,37 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem; // space between inputs
+
+  input,
+  textarea {
+    font-size: 1rem;        // text size
+    padding: 0.5rem 1rem;   // inner spacing
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: 500px;            // standard desktop width
+    max-width: 100%;         // never overflow parent
+  }
+
+  textarea {
+    height: 150px;           // default textarea height
+    resize: vertical;        // user can resize vertically
+  }
+  
+  button {
+    width: 50%;
+  }
+
+  // Mobile styles
+  @media (max-width: 600px) {
+    input,
+    textarea {
+      width: 100%;   // full width on mobile
+    }
+
+    textarea {
+      height: 120px; // slightly smaller on mobile
+    }
+  }
+}
+

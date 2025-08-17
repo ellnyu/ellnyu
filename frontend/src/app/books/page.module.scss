@@ -1,0 +1,69 @@
+.pageContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.pageTitle {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.cardsContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+
+.card {
+  background-color: #fff8f0; // light cream
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+}
+
+.bookTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.bookAuthor {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 1rem;
+}
+
+.rating {
+  display: flex;
+  justify-content: center;
+  gap: 0.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.filledIcon {
+  width: 24px;
+  height: 24px;
+}
+
+.emptyIcon {
+  width: 24px;
+  height: 24px;
+  opacity: 0.3;
+}
+
+.readDate {
+  font-size: 0.9rem;
+  color: #888;
+  margin-top: auto; // pushes it to the bottom
+}
+
