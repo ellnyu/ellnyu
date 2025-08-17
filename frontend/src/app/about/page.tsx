@@ -1,23 +1,21 @@
 import Navbar from "@/components/navbar/Navbar";
+import styles from "./page.module.scss";
 
 export default function About() {
   return (
-    <div className="app-layout">
-      <main className="main-content">
-          <h2>Ellen Yu hvem er det? idk, skal finne ut og komme tilbake til det</h2>
+    <div className={styles.appLayout}>
+      <main className={styles.mainContent}>
+        <h2>Ellen Yu hvem er det?</h2>
+          <p>En trist jente fordi siden hennes suger:'(</p>
+
+            <img
+          src="/images/ellen.JPEG" // path in public folder
+          alt="Ellen Yu"
+          className={styles.roundedImage}
+        />
+
       </main>
     </div>
   );
 }
-
-import React from "react";
-
-const AboutPage: React.FC = () => {
-  return <h2>Ellen Yu hvem er det? idk, skal finne ut og komme tilbake til det</h2>;
-};
-
-export default AboutPage;
-
-
-
 

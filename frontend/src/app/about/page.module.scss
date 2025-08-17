@@ -1,0 +1,19 @@
+.appLayout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+}
+
+.mainContent {
+  text-align: center;
+}
+
+.roundedImage {
+  width: 350px;  // adjust size as needed
+  height: 350px;
+  border-radius: 50%; // makes it perfectly circular
+  object-fit: cover;
+  margin-bottom: 1rem;
+}
+
