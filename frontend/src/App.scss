@@ -1,0 +1,25 @@
+@import "./styles/variables";
+
+.app-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  background: $color-cream; // light background
+  color: $color-navy;
+}
+
+.footer {
+  text-align: center;
+  padding: 1rem;
+  background: $color-slate;
+  color: $color-light;
+  border-top: 2px solid $color-navy;
+}
+
