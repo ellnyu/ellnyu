@@ -1,13 +1,11 @@
-// src/styles/_fonts.scss
-
-// Define a map of fonts for easier reuse
+// Fonts map
 $fonts: (
-  "Boska-Regular": (path: "/fonts/Boska-Regular", weight: 400),
-  "Boska-Bold": (path: "/fonts/Boska-Bold", weight: 700),
-  "Boska-Black": (path: "/fonts/Boska-Black", weight: 900),
-  "Melodrama-Bold": (path: "/fonts/Melodrama-Bold", weight: 200),
-  "RX100-Regular": (path: "/fonts/RX100-Regular", weight: 400),
-  "Technor-Light": (path: "/fonts/Technor-Light", weight: 300),
+  "Boska-Regular":   (path: "/fonts/Boska-Regular", weight: 400),
+  "Boska-Bold":      (path: "/fonts/Boska-Bold", weight: 700),
+  "Boska-Black":     (path: "/fonts/Boska-Black", weight: 900),
+  "Melodrama-Bold":  (path: "/fonts/Melodrama-Bold", weight: 200),
+  "RX100-Regular":   (path: "/fonts/RX100-Regular", weight: 400),
+  "Technor-Light":   (path: "/fonts/Technor-Light", weight: 300),
   "Stardom-Regular": (path: "/fonts/Stardom-Regular", weight: 400)
 );
 
@@ -17,14 +15,15 @@ $fonts: (
     font-family: $name;
     src: url("#{$file-path}.woff2") format("woff2"),
          url("#{$file-path}.woff") format("woff"),
-         url("#{$file-path}.ttf") format("truetype");
+         url("#{$file-path}.ttf") format("truetype"),
+         url("#{$file-path}.eot") format("embedded-opentype");
     font-weight: $weight;
     font-style: normal;
     font-display: swap;
   }
 }
 
-// Loop through the map and create font-face rules
+// Generate all font-faces
 @each $font-name, $props in $fonts {
   @include font-face($font-name, map-get($props, path), map-get($props, weight));
 }

@@ -1,9 +1,11 @@
-@use './variables' as *;
+@use './variables' as vars;
+@use './fonts' as *; // Ensure all @font-face are loaded
+
 body {
   margin: 0;
-  background-color: $color-cream;
-  color: $color-text;
-  font-family: $text-paragraphs;
+  background-color: vars.$color-cream;
+  color: vars.$color-text;
+  font-family: vars.$text-paragraphs;
 }
 
 a {
