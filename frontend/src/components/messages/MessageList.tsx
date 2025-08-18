@@ -2,6 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { apiGet } from "@/utils/api";
+import styles from "./MessageList.module.scss";
 
 type Message = {
   id: number;
@@ -16,19 +17,29 @@ export default function MessagesList() {
     queryFn: () => apiGet("/messages"),
   });
 
-  if (isLoading) return <p>Laster inn meldinger...</p>;
+  if (isLoading) return <p className={styles.loading}>Laster inn meldinger...</p>;
 
   return (
-    <div>
-      <h2>Jeg fortjener roasts nå:</h2>
+    <div className={styles.container}>
       {messages.length === 0 ? (
-        <p>Tørr du ikke skrive eller?</p>
+        <p className={styles.empty}>Tørr du ikke skrive eller?</p>
       ) : (
-        <ul>
+        <ul className={styles.list}>
           {messages.map((m) => (
-            <li key={m.id}>
-              <strong>{m.name}:</strong> {m.message}{" "}
-              <em>({new Date(m.created_at).toLocaleString()})</em>
+            <li key={m.id} className={styles.card}>
+              <div className={styles.header}>
+                <strong className={styles.name}>{m.name}</strong>
+                <span className={styles.date}>
+                  {new Date(m.created_at).toLocaleDateString("no-NO", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}
+                </span>
+              </div>
+              <p className={styles.message}>{m.message}</p>
             </li>
           ))}
         </ul>

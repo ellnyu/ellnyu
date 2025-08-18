@@ -38,6 +38,23 @@ button {
   }
 }
 
+button.secondary {
+  background-color: vars.$color-slate; // light background
+  color: vars.$color-cream;       // text color for secondary
+  border: 1px solid vars.$color-purpleblue;
+
+  &:hover {
+    background-color: vars.$color-lavender;
+    color: vars.$color-cream;
+  }
+
+  &.active {
+    background-color: vars.$color-slate;
+    color: vars.$color-cream;
+  }
+}
+
+
 * {
   margin: 0;
   padding: 0;

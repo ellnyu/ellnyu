@@ -32,19 +32,19 @@
 }
 
 .bookTitle {
-  font-size: 1.25rem;
+  font-size: 1.45rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
 }
 
 .bookAuthor {
-  font-size: 1rem;
+  font-size: 1.1rem;
   color: #555;
   margin-bottom: 1rem;
 }
 
 .review {
-  font-size: 1rem;
+  font-size: 0.9rem;
   color: #555;
   margin-bottom: 1rem;
 }
@@ -70,6 +70,34 @@
 .readDate {
   font-size: 0.9rem;
   color: #888;
-  margin-top: auto; // pushes it to the bottom
+    margin-top: auto; // pushes it to the bottom
+}
+.adminButtons {
+  margin-top: 2rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+
+  button {
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+  }
 }
 

@@ -26,24 +26,33 @@ export default function MessagesForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className={styles.form}>
-      <input
-        type="text"
-        placeholder="Navn"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        required
-      />
-      <textarea
-        placeholder="Melding du vil sende til din kjære"
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-        required
-      />
-      <button type="submit" disabled={mutation.isPending}>
-        {mutation.isPending ? "Sender..." : "Send"}
-      </button>
-    </form>
+    <div className={styles.card}>
+      <h2 className={styles.title}>Send en melding</h2>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <input
+          type="text"
+          placeholder="Navn"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+          className={styles.input}
+        />
+        <textarea
+          placeholder="Melding du vil sende til din kjære"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          required
+          className={styles.textarea}
+        />
+        <button
+          type="submit"
+          disabled={mutation.isPending}
+          className="secondary"
+        >
+          {mutation.isPending ? "Sender..." : "Send"}
+        </button>
+      </form>
+    </div>
   );
 }
 

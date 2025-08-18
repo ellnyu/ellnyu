@@ -4,6 +4,8 @@ import Modal from "@/components/modal/Modal"; // <-- generic overlay modal
 import Rating from "@/components/rating/Rating";
 import { authPost } from "@/utils/api";
 import styles from "./AddBookModal.module.scss";
+import { camelToSnake } from "@/utils/caseHelpers";
+import { toIsoDateTime } from "@/utils/dateHelpers";
 
 type AddBookModalProps = {
   isOpen: boolean;
@@ -18,16 +20,38 @@ export default function AddBookModal({ isOpen, onClose, onBookAdded }: AddBookMo
   const [review, setReview] = useState("");
   const [rating, setRating] = useState(0);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      await authPost("/books", { title, author, readDate, review, rating });
-      onBookAdded(); 
-      onClose();
-    } catch (err) {
-      console.error("Failed to add book", err);
-    }
-  };
+  const resetForm = () => {
+    setTitle("");
+    setAuthor("");
+    setReview("");
+    setRating(1);
+    setReadDate("");
+};
+
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  try {
+    // ✅ Build the payload with conversions
+    const payload = camelToSnake({
+      title,
+      author,
+      readDate: toIsoDateTime(readDate), // convert to SQL-friendly format
+      review,
+      rating,
+    });
+
+    console.log("Submitting payload:", payload);
+
+    await authPost("/books", payload);
+
+    onBookAdded();   // refresh list
+    resetForm();     // clear fields
+    onClose();       // close modal
+  } catch (err) {
+    console.error("Failed to add book", err);
+  }
+};
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>

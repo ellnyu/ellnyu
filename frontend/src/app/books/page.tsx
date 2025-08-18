@@ -3,7 +3,9 @@ import styles from "./page.module.scss";
 import Image from 'next/image';
 import { useState, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
-import { apiGet } from "@/utils/api"; // make sure you have this utility
+import { apiGet } from "@/utils/api";
+import { snakeToCamel } from "@/utils/caseHelpers";
+import { formatYearMonth } from "@/utils/dateHelpers";
 import AddBookModal from "@/components/books/AddBookModal";
 import DeleteBookModal from "@/components/books/DeleteBookModal";
 
@@ -22,16 +24,21 @@ export default function BooksPage() {
   const [showAddModal, setShowAddModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
-  // Fetch books from API
-  const fetchBooks = async () => {
-    try {
-      const data = await apiGet<Book[]>("/books");
-      setBooks(data);
-    } catch (err) {
-      console.error("Failed to fetch books", err);
-    }
-  };
+    const fetchBooks = async () => {
+  try {
+    const data = await apiGet("/books");
+    const camelBooks = snakeToCamel(data);
 
+    setBooks(
+      camelBooks.map((b: any) => ({
+        ...b,
+        readDate: b.readDate ? formatYearMonth(b.readDate) : "",
+      }))
+    );
+  } catch (err) {
+    console.error("Failed to fetch books", err);
+  }
+};
   // Initial fetch
   useEffect(() => {
     fetchBooks();
@@ -53,8 +60,8 @@ export default function BooksPage() {
               key={i}
               src="/images/cutepepe.png"
               alt="rating"
-              width={24}
-              height={24}
+              width={26}
+              height={26}
               className={i < book.rating ? styles.filledIcon : styles.emptyIcon}
             />
           ))}
