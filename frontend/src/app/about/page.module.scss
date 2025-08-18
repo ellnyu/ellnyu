@@ -10,10 +10,7 @@
 }
 
 .roundedImage {
-  width: 350px;  // adjust size as needed
-  height: 350px;
-  border-radius: 50%; // makes it perfectly circular
+  border-radius: 50%;
   object-fit: cover;
-  margin-bottom: 1rem;
 }
 

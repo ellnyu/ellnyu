@@ -1,40 +1,90 @@
+'use client';
 import styles from "./page.module.scss";
+import Image from 'next/image';
+import { useState, useEffect } from "react";
+import { useAuth } from "@/context/AuthContext";
+import { apiGet } from "@/utils/api"; // make sure you have this utility
+import AddBookModal from "@/components/books/AddBookModal";
+import DeleteBookModal from "@/components/books/DeleteBookModal";
 
-// Sample static data
-const books = [
-  { title: "The Hobbit", author: "J.R.R. Tolkien", rating: 4, readDate: "March 2023" },
-  { title: "Pride and Prejudice", author: "Jane Austen", rating: 5, readDate: "January 2022" },
-  { title: "1984", author: "George Orwell", rating: 5, readDate: "June 2021" },
-  { title: "To Kill a Mockingbird", author: "Harper Lee", rating: 4, readDate: "September 2020" },
-];
+type Book = {
+  id?: number;
+  title: string;
+  author: string;
+  review: string;
+  rating: number;
+  readDate: string;
+};
 
 export default function BooksPage() {
+  const { isAdmin } = useAuth();
+  const [books, setBooks] = useState<Book[]>([]);
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  // Fetch books from API
+  const fetchBooks = async () => {
+    try {
+      const data = await apiGet<Book[]>("/books");
+      setBooks(data);
+    } catch (err) {
+      console.error("Failed to fetch books", err);
+    }
+  };
+
+  // Initial fetch
+  useEffect(() => {
+    fetchBooks();
+  }, []);
+
   return (
     <div className={styles.pageContainer}>
       <h1 className={styles.pageTitle}>Bøker jeg har lest</h1>
-      <div className={styles.cardsContainer}>
-        {books.map((book, idx) => (
-          <div key={idx} className={styles.card}>
-            <h2 className={styles.bookTitle}>{book.title}</h2>
-            <p className={styles.bookAuthor}>by {book.author}</p>
-            <div className={styles.rating}>
-              {Array.from({ length: 5 }).map((_, i) => (
-                <img
-                  key={i}
-                  src="/images/cutepepe.png" // replace with your logo path
-                  alt="rating"
-                  className={
-                    i < book.rating
-                      ? styles.filledIcon
-                      : styles.emptyIcon
-                  }
-                />
-              ))}
-            </div>
-            <p className={styles.readDate}>{book.readDate}</p>
-          </div>
-        ))}
+        <div className={styles.cardsContainer}>
+  {books && books.length > 0 ? (
+    books.map((book, idx) => (
+      <div key={idx} className={styles.card}>
+        <h2 className={styles.bookTitle}>{book.title}</h2>
+        <p className={styles.bookAuthor}>skrevet av {book.author}</p>
+        <p className={styles.review}>{book.review}</p>
+        <div className={styles.rating}>
+          {Array.from({ length: 5 }).map((_, i) => (
+            <Image
+              key={i}
+              src="/images/cutepepe.png"
+              alt="rating"
+              width={24}
+              height={24}
+              className={i < book.rating ? styles.filledIcon : styles.emptyIcon}
+            />
+          ))}
+        </div>
+        <p className={styles.readDate}>{book.readDate}</p>
       </div>
+    ))
+  ) : (
+    <p>Ingen bøker funnet.</p>
+  )}
+</div>
+      {isAdmin && (
+        <div className={styles.adminButtons}>
+          <button onClick={() => setShowAddModal(true)}>Legg til en bok</button>
+          <button onClick={() => setShowDeleteModal(true)}>Slett en bok</button>
+        </div>
+      )}
+
+      <AddBookModal
+        isOpen={showAddModal}
+        onClose={() => setShowAddModal(false)}
+        onBookAdded={fetchBooks} // refresh books after adding
+      />
+
+      <DeleteBookModal
+        isOpen={showDeleteModal}
+        onClose={() => setShowDeleteModal(false)}
+        onBookDeleted={fetchBooks} // refresh books after deleting
+      />
+
     </div>
   );
 }

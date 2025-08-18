@@ -1,0 +1,13 @@
+.ratingContainer {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.filledIcon {
+  filter: brightness(1);
+}
+
+.emptyIcon {
+  filter: grayscale(100%) brightness(0.7);
+}
+

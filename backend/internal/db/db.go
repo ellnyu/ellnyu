@@ -4,23 +4,17 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"os"
 	"time"
 
+	"github.com/ellnyu/ellnyu/backend/config"
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
 var Pool *pgxpool.Pool
 
-// Connect initializes the database connection
-func Connect() error {
-	dbURL := os.Getenv("DATABASE_URL")
-	if dbURL == "" {
-		return fmt.Errorf("DATABASE_URL not set")
-	}
-
+func Connect(cfg config.Config) error {
 	var err error
-	Pool, err = pgxpool.New(context.Background(), dbURL)
+	Pool, err = pgxpool.New(context.Background(), cfg.DBUrl)
 	if err != nil {
 		return fmt.Errorf("unable to connect to DB: %v", err)
 	}
@@ -36,7 +30,6 @@ func Connect() error {
 	return nil
 }
 
-// InitDB creates tables if they don't exist
 func InitDB() error {
 	query := `
 	CREATE TABLE IF NOT EXISTS ellnyu.messages (
@@ -45,6 +38,15 @@ func InitDB() error {
 		message TEXT NOT NULL,
 		created_at TIMESTAMP DEFAULT NOW()
 	);
+
+    CREATE TABLE IF NOT EXISTS ellnyu.books (
+        id SERIAL PRIMARY KEY,
+        title TEXT NOT NULL,
+        author TEXT NOT NULL,
+        rating INTEGER,
+        review TEXT,
+        read_date TIMESTAMP
+    );
 
     CREATE TABLE IF NOT EXISTS ellnyu.suggestions (
         id SERIAL PRIMARY KEY,
