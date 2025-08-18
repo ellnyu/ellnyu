@@ -1,3 +1,5 @@
+@use '@/styles/variables' as vars;
+
 .container {
   display: flex;
   flex-direction: column;
@@ -32,7 +34,7 @@
 }
 
 .card {
-  background-color: #fff8f0;
+  background-color: vars.$color-white;
   padding: 1rem 1.25rem;
   width: 100%; // now really fills the right column
   border-radius: 12px;

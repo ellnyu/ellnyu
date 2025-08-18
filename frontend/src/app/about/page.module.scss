@@ -1,16 +1,83 @@
+@use '@/styles/variables' as vars;
+
 .appLayout {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center;
   padding: 2rem;
 }
 
 .mainContent {
+  max-width: 900px;
   text-align: center;
+}
+
+.profileSection {
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.imageWrapper {
+  flex: 0 0 200px;
 }
 
 .roundedImage {
   border-radius: 50%;
   object-fit: cover;
+}
+
+.bioAndLinks {
+  flex: 1;
+  text-align: left;
+}
+
+.biography {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.socialLinks {
+  display: flex;
+  justify-content: left; // center the group of buttons
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.socialButton {
+  display: flex;
+  align-items: center; // vertically center icon and text
+  gap: 0.5rem;         // space between icon and text
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  text-decoration: none;
+  color: vars.$color-navy;
+  font-family: 'Melodrama-Bold';
+  transition: background-color 0.2s;
+
+  &:first-child {
+    background-color: vars.$color-lavender; // Instagram pink
+  }
+
+  &:last-child {
+    background-color: vars.$color-purpleblue; // LinkedIn blue
+  }
+
+  &:first-child:hover {
+    background-color: darken(vars.$color-lavender, 10%); // Instagram hover
+  }
+
+  &:last-child:hover {
+    background-color: darken(vars.$color-purpleblue, 10%); // LinkedIn hover
+  }
+}
+
+.icon {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
 }
 

@@ -1,5 +1,7 @@
+@use '@/styles/variables' as vars;
+
 .card {
-  background-color: #fff8f0; // same cream as book cards
+  background-color: vars.$color-white;
   padding: 1.5rem;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -32,7 +34,7 @@
   transition: border-color 0.2s;
 
   &:focus {
-    border-color: #ff9a76; // warm accent
+    border-color: vars.$color-slate;
   }
 }
 

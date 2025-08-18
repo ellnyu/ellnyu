@@ -1,6 +1,4 @@
-$card-bg: #fff;
-$card-border: #e9ecef;
-$primary: #d6336c;
+@use '@/styles/variables' as vars;
 
 .postsGrid {
   display: grid;
@@ -10,8 +8,8 @@ $primary: #d6336c;
 }
 
 .card {
-  background: $card-bg;
-  border: 1px solid $card-border;
+  background: vars.$color-white;
+  border: 1px solid vars.$color-cream;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
@@ -26,7 +24,7 @@ $primary: #d6336c;
     width: 100%;
     height: auto;
     display: block;
-    border-bottom: 1px solid $card-border;
+    border-bottom: 1px solid vars.$color-cream;
   }
 
   p {
