@@ -2,7 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { apiGet } from "@/utils/api";
-import styles from "./suggestions.module.scss";
+import styles from "./SuggestionList.module.scss";
 
 type Suggestion = {
   id: number;
@@ -28,13 +28,20 @@ export default function SuggestionsList() {
   }
 
   return (
-    <div>
-      <h1 className={styles.title}>Hva skal jeg jobbe med på siden først?</h1>
-        <ul>
+  <div className={styles.container}>
+          <ul className={styles.list}>
           {suggestions.map((m) => (
-            <li key={m.id}>
-               {m.suggestion}{" "}
-              <em>({new Date(m.created_at).toLocaleString()})</em>
+            <li key={m.id} className={styles.card}>
+              <p className={styles.message}>{m.suggestion}</p>
+               <span className={styles.date}>
+                  {new Date(m.created_at).toLocaleDateString("no-NO", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}
+                </span>
             </li>
           ))}
         </ul>

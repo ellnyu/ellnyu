@@ -1,5 +1,5 @@
 "use client";
-
+import styles from "./SuggestionForm.module.scss";
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiPost } from "@/utils/api";
@@ -23,18 +23,25 @@ export default function SuggestionsForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <textarea
-        placeholder="Hva må jeg fikse på? Du kan rante eller være presis, spiller ingen rolle for uansett må jeg fikse på alt"
-        value={suggestion}
-        onChange={(e) => setSuggestion(e.target.value)}
-        required
-      />
-      <button type="submit" disabled={mutation.isPending}>
-  {mutation.isPending ? "Sender..." : "Send"}
-</button>
+    <div className={styles.card}>
+        <form onSubmit={handleSubmit} className={styles.form}> 
+          <textarea
+            placeholder="Hva må jeg fikse på? Du kan rante eller være presis, spiller ingen rolle for uansett må jeg fikse på alt"
+            value={suggestion}
+            onChange={(e) => setSuggestion(e.target.value)}
+            required
+            className={styles.textarea}
+          />
 
-    </form>
+        <button
+          type="submit"
+          disabled={mutation.isPending}
+          className="secondary"
+        >
+          {mutation.isPending ? "Sender..." : "Send"}
+        </button>
+      </form>
+    </div>
   );
 }
 
