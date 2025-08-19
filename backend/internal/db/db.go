@@ -57,6 +57,47 @@ func InitDB() error {
         read_date TIMESTAMP
     );
 
+    CREATE TABLE IF NOT EXISTS ellnyu.tags (
+        id SERIAL PRIMARY KEY,
+        tag TEXT UNIQUE NOT NULL
+    );
+
+    CREATE TABLE IF NOT EXISTS ellnyu.category (
+        id SERIAL PRIMARY KEY,
+        category TEXT UNIQUE NOT NULL
+    );
+
+    CREATE TABLE IF NOT EXISTS ellnyu.images (
+        id SERIAL PRIMARY KEY,
+        url TEXT UNIQUE NOT NULL
+    );
+
+
+    CREATE TABLE IF NOT EXISTS ellnyu.blogposts (
+        id SERIAL PRIMARY KEY,
+        title TEXT NOT NULL,
+        content TEXT NOT NULL,
+        created_at TIMESTAMP DEFAULT NOW()
+    );
+
+    CREATE TABLE IF NOT EXISTS ellnyu.blogpost_tags (
+        blogpost_id INT REFERENCES ellnyu.blogposts(id) ON DELETE CASCADE,
+        tag_id INT REFERENCES ellnyu.tags(id) ON DELETE CASCADE,
+        PRIMARY KEY (blogpost_id, tag_id)
+    );
+
+    CREATE TABLE IF NOT EXISTS ellnyu.blogpost_images (
+        blogpost_id INT REFERENCES ellnyu.blogposts(id) ON DELETE CASCADE,
+        image_id INT REFERENCES ellnyu.images(id) ON DELETE CASCADE,
+        PRIMARY KEY (blogpost_id, image_id)
+    );
+
+    CREATE TABLE IF NOT EXISTS ellnyu.blogpost_categories (
+        blogpost_id INT REFERENCES ellnyu.blogposts(id) ON DELETE CASCADE,
+        category_id INT REFERENCES ellnyu.category(id) ON DELETE CASCADE,
+        PRIMARY KEY (post_id, category_id)
+    );
+
     CREATE TABLE IF NOT EXISTS ellnyu.suggestions (
         id SERIAL PRIMARY KEY,
         suggestion TEXT NOT NULL,

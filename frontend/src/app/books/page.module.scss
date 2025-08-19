@@ -1,3 +1,5 @@
+@use '@/styles/variables' as vars;
+
 .pageContainer {
   max-width: 1200px;
   margin: 0 auto;
@@ -100,4 +102,33 @@
     }
   }
 }
+
+  .filterBar {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+
+    .filters {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+
+      strong {
+        margin-right: 0.5rem;
+      }
+      button {
+        &:hover {
+          background: vars.$color-lavender;
+        }
+
+        &.active {
+          background: vars.$color-slate;
+          color: vars.$color-cream;
+        }
+      }
+    }
+  }
 
