@@ -26,8 +26,7 @@ export default function BlogPage() {
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const isAdmin = useAuth();
-
+  const { isAdmin } = useAuth();
   const fetchPosts = async () => {
     try {
         const data: BlogPost[] = await apiGet("/blog");
