@@ -72,7 +72,7 @@ func CreateBookHandler(w http.ResponseWriter, r *http.Request) {
 func GetBooksHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodGet {
 		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
-		log.Println("GetSuggestionsHandler: method not allowed", r.Method)
+		log.Println("GetBooksHandler: method not allowed", r.Method)
 		return
 	}
 
@@ -85,8 +85,8 @@ func GetBooksHandler(w http.ResponseWriter, r *http.Request) {
 		ORDER BY read_date DESC
 	`)
 	if err != nil {
-		http.Error(w, "failed to fetch suggestions: "+err.Error(), http.StatusInternalServerError)
-		log.Println("GetSuggestionsHandler: DB query error:", err)
+		http.Error(w, "failed to fetch books: "+err.Error(), http.StatusInternalServerError)
+		log.Println("GetBooksHandler: DB query error:", err)
 		return
 	}
 	defer rows.Close()

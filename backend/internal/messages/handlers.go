@@ -44,7 +44,7 @@ func CreateMessageHandler(w http.ResponseWriter, r *http.Request) {
 	err := db.Pool.QueryRow(ctx, query, input.Name, input.Message).
 		Scan(&message.ID, &message.Name, &message.Text, &message.CreatedAt)
 	if err != nil {
-		http.Error(w, "failed to insert review: "+err.Error(), http.StatusInternalServerError)
+		http.Error(w, "failed to insert message: "+err.Error(), http.StatusInternalServerError)
 		return
 	}
 
@@ -67,7 +67,7 @@ func GetMessagesHandler(w http.ResponseWriter, r *http.Request) {
 		ORDER BY created_at DESC
 	`)
 	if err != nil {
-		http.Error(w, "failed to fetch reviews: "+err.Error(), http.StatusInternalServerError)
+		http.Error(w, "failed to fetch messages: "+err.Error(), http.StatusInternalServerError)
 		return
 	}
 	defer rows.Close()

@@ -10,6 +10,7 @@ import (
 	"github.com/ellnyu/ellnyu/backend/internal/instagram"
 	"github.com/ellnyu/ellnyu/backend/internal/messages"
 	"github.com/ellnyu/ellnyu/backend/internal/suggestions"
+	"github.com/ellnyu/ellnyu/backend/internal/travels"
 	"github.com/rs/cors"
 )
 
@@ -22,6 +23,17 @@ func NewRouter(cfg config.Config) http.Handler {
 	mux.HandleFunc("/instagram/me", instagram.MeHandler(cfg))
 	mux.HandleFunc("/instagram/stories", instagram.StoriesHandler(cfg))
 	mux.HandleFunc("/instagram/posts", instagram.PostsHandler(cfg))
+
+	mux.HandleFunc("/travels", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method == http.MethodGet {
+			travels.GetTravelHandler(w, r)
+		} else if r.Method == http.MethodPost {
+			log.Printf("We here")
+			auth.RequireAuth(travels.CreateTravelHandler(cfg))(w, r)
+		} else {
+			http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
+		}
+	})
 
 	mux.HandleFunc("/messages", func(w http.ResponseWriter, r *http.Request) {
 		switch r.Method {

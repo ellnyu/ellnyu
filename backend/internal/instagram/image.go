@@ -6,7 +6,6 @@ import (
 	"net/http"
 )
 
-// ImageHandler proxies Instagram images to frontend
 func ImageHandler() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		mediaURL := r.URL.Query().Get("url")
@@ -37,7 +36,6 @@ func ImageHandler() http.HandlerFunc {
 	}
 }
 
-// FetchImage writes the content of a media URL to the response
 func FetchImage(w http.ResponseWriter, mediaURL string) {
 	resp, err := http.Get(mediaURL)
 	if err != nil {
@@ -52,10 +50,8 @@ func FetchImage(w http.ResponseWriter, mediaURL string) {
 		return
 	}
 
-	// Copy the Content-Type from Instagram
 	w.Header().Set("Content-Type", resp.Header.Get("Content-Type"))
 
-	// Stream the image bytes to the client
 	_, err = io.Copy(w, resp.Body)
 	if err != nil {
 		log.Println("Error streaming media:", err)

@@ -9,7 +9,6 @@ import (
 	"github.com/ellnyu/ellnyu/backend/config"
 )
 
-// PostsHandler returns an http.HandlerFunc that fetches the user's posts
 func PostsHandler(cfg config.Config) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		token := cfg.InstagramToken

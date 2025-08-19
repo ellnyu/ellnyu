@@ -39,6 +39,15 @@ func InitDB() error {
 		created_at TIMESTAMP DEFAULT NOW()
 	);
 
+    CREATE TABLE IF NOT EXISTS ellnyu.travels (
+        id SERIAL PRIMARY KEY,
+        location TEXT NOT NULL,
+        country TEXT NOT NULL,
+        latitude DECIMAL(9,7),
+        longitude DECIMAL(9,6),
+        travel_date TIMESTAMP
+    );
+
     CREATE TABLE IF NOT EXISTS ellnyu.books (
         id SERIAL PRIMARY KEY,
         title TEXT NOT NULL,

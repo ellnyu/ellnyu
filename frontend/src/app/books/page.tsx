@@ -29,17 +29,17 @@ export default function BooksPage() {
     const data: Book[] = await apiGet("/books");
     const camelBooks = snakeToCamel<Book[]>(data);
 
-setBooks(
-  camelBooks.map((b) => ({
-    ...b,
-    readDate: b.readDate ? formatYearMonth(b.readDate) : "",
-  }))
-);
+    setBooks(
+      camelBooks.map((b) => ({
+        ...b,
+        readDate: b.readDate ? formatYearMonth(b.readDate) : "",
+      }))
+    );
 
-  } catch (err) {
-    console.error("Failed to fetch books", err);
-  }
-};
+      } catch (err) {
+        console.error("Failed to fetch books", err);
+      }
+    };
   // Initial fetch
   useEffect(() => {
     fetchBooks();

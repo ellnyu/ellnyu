@@ -17,6 +17,7 @@ func LoginHandler(w http.ResponseWriter, r *http.Request, cfg config.Config) {
 		Username string `json:"username"`
 		Password string `json:"password"`
 	}
+
 	if err := json.NewDecoder(r.Body).Decode(&creds); err != nil {
 		http.Error(w, "invalid request body", http.StatusBadRequest)
 		return

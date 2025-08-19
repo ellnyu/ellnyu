@@ -9,7 +9,6 @@ import (
 	"github.com/ellnyu/ellnyu/backend/config"
 )
 
-// StoriesHandler returns an http.HandlerFunc that fetches the user's active stories
 func StoriesHandler(cfg config.Config) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		token := cfg.InstagramToken
@@ -52,4 +51,3 @@ func StoriesHandler(cfg config.Config) http.HandlerFunc {
 		json.NewEncoder(w).Encode(result)
 	}
 }
-
