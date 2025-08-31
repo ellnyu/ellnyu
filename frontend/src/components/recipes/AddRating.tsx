@@ -60,7 +60,7 @@ export default function AddRatingModal({ isOpen, onClose, recipeId, recipeName, 
 
         <label>Rating</label>
         <div className={styles.rating}>
-          <Rating initialRating={rating} onChange={(r) => setRating(r)} />
+          <Rating initialRating={rating} ratingIcon={"/images/star_cute.png"} onChange={(r) => setRating(r)} />
         </div>
 
         <div className={styles.buttons}>

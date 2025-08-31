@@ -6,12 +6,13 @@ import styles from "./Rating.module.scss";
 type RatingProps = {
   initialRating?: number;
   maxRating?: number;
+  ratingIcon: string;
   onChange?: (rating: number) => void;
 };
 
-export default function Rating({ initialRating = 0, maxRating = 5, onChange }: RatingProps) {
+export default function Rating({ initialRating = 0, maxRating = 5, onChange, ratingIcon }: RatingProps) {
   const [rating, setRating] = useState(initialRating);
-
+  
   useEffect(() => {
     setRating(initialRating);
   }, [initialRating]);
@@ -28,7 +29,7 @@ export default function Rating({ initialRating = 0, maxRating = 5, onChange }: R
         return (
           <Image
             key={index}
-            src="/images/cutepepe.png"
+            src={ratingIcon}
             alt={`Rating ${index}`}
             width={24}
             height={24}

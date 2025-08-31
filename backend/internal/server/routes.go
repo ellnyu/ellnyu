@@ -55,6 +55,7 @@ func NewRouter(cfg config.Config) http.Handler {
 	r.HandleFunc("/recipes", recipes.GetRecipesHandler).Methods(http.MethodGet)
 	r.HandleFunc("/recipes", auth.RequireAuth(recipes.CreateRecipeHandler)).Methods(http.MethodPost)
 	r.HandleFunc("/recipes/rating", recipes.InsertRatingHandler).Methods(http.MethodPost)
+	r.HandleFunc("/recipes/delete", auth.RequireAuth(recipes.DeleteRecipeHandler))
 
 	// CORS
 	c := cors.New(cors.Options{

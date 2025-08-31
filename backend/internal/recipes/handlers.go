@@ -185,41 +185,40 @@ func InsertRatingHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(input)
 }
 
-// func DeleteRecipeHandler(w http.ResponseWriter, r *http.Request) {
-// 	if r.Method != http.MethodDelete {
-// 		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
-// 		log.Println("DeleteBookHandler: method not allowed", r.Method)
-// 		return
-// 	}
-//
-// 	var input struct {
-// 		Title  string `json:"title"`
-// 		Author string `json:"author"`
-// 	}
-// 	if err := json.NewDecoder(r.Body).Decode(&input); err != nil {
-// 		http.Error(w, "invalid request body", http.StatusBadRequest)
-// 		log.Println("DeleteBookHandler: failed to decode body:", err)
-// 		return
-// 	}
-//
-// 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-// 	defer cancel()
-//
-// 	res, err := db.Pool.Exec(ctx,
-// 		`DELETE FROM ellnyu.books WHERE title=$1 AND author=$2`,
-// 		input.Title, input.Author,
-// 	)
-// 	if err != nil {
-// 		http.Error(w, "failed to delete book: "+err.Error(), http.StatusInternalServerError)
-// 		log.Println("DeleteBookHandler: DB exec error:", err)
-// 		return
-// 	}
-//
-// 	count := res.RowsAffected()
-// 	log.Printf("DeleteBookHandler: deleted %d rows\n", count)
-//
-// 	w.Header().Set("Content-Type", "application/json")
-// 	json.NewEncoder(w).Encode(map[string]any{
-// 		"deleted": count,
-// 	})
-// }
+func DeleteRecipeHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodDelete {
+		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
+		log.Println("DeleteRecipeHandler: method not allowed", r.Method)
+		return
+	}
+
+	var input struct {
+		ID int `json:"id"` // delete by ID
+	}
+	if err := json.NewDecoder(r.Body).Decode(&input); err != nil {
+		http.Error(w, "invalid request body", http.StatusBadRequest)
+		log.Println("DeleteRecipeHandler: failed to decode body:", err)
+		return
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	res, err := db.Pool.Exec(ctx,
+		`DELETE FROM ellnyu.recipes WHERE id=$1`,
+		input.ID,
+	)
+	if err != nil {
+		http.Error(w, "failed to delete recipe: "+err.Error(), http.StatusInternalServerError)
+		log.Println("DeleteRecipeHandler: DB exec error:", err)
+		return
+	}
+
+	count := res.RowsAffected()
+	log.Printf("DeleteRecipeHandler: deleted %d rows\n", count)
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(map[string]any{
+		"deleted": count,
+	})
+}

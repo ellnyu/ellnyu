@@ -46,13 +46,13 @@ export default function AddRecipe({ isOpen, onClose, onRecipeAdded }: AddRecipes
     setLoading(true);
 
     try {
-      const payload = camelToSnake({
+      const payload = {
         name,
         recipeURL,
         tags,
         category,
         images,
-    });
+    };
 
       await authPost("/recipes", payload);
 

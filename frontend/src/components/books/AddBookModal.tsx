@@ -83,7 +83,7 @@ const handleSubmit = async (e: React.FormEvent) => {
         />
         <div>
           <p>Rating:</p>
-          <Rating initialRating={rating} onChange={(r) => setRating(r)} />
+          <Rating initialRating={rating} ratingIcon={"/images/cutepepe.png"} onChange={(r) => setRating(r)} />
         </div>
         <div className={styles.buttons}>
           <button type="submit">Legg til</button>
