@@ -103,6 +103,34 @@ func InitDB() error {
         suggestion TEXT NOT NULL,
     	created_at TIMESTAMP DEFAULT NOW()
     );
+
+    CREATE TABLE IF NOT EXISTS ellnyu.recipes (
+        id SERIAL PRIMARY KEY,
+        name TEXT NOT NULL,
+        recipe_url TEXT NOT NULL,
+  		rating INT,
+  		created_at TIMESTAMP DEFAULT NOW(),
+        tried_date TIMESTAMP
+    );
+
+    CREATE TABLE IF NOT EXISTS ellnyu.recipe_images (
+        recipe_id INT REFERENCES ellnyu.recipes(id) ON DELETE CASCADE,
+        image_id INT REFERENCES ellnyu.images(id) ON DELETE CASCADE,
+        PRIMARY KEY (recipe_id, image_id)
+    );
+
+    CREATE TABLE IF NOT EXISTS ellnyu.recipe_categories (
+        recipe_id INT REFERENCES ellnyu.recipes(id) ON DELETE CASCADE,
+        category_id INT REFERENCES ellnyu.category(id) ON DELETE CASCADE,
+        PRIMARY KEY (recipe_id, category_id)
+    );
+
+  	CREATE TABLE IF NOT EXISTS ellnyu.recipes_tags (
+        recipe_id INT REFERENCES ellnyu.recipes(id) ON DELETE CASCADE,
+        tag_id INT REFERENCES ellnyu.tags(id) ON DELETE CASCADE,
+        PRIMARY KEY (recipe_id, tag_id)
+    );
+
 	`
 
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)

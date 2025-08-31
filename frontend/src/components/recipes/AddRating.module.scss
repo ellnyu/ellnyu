@@ -1,0 +1,28 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.rating {
+  display: flex;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.starFilled {
+  color: gold;
+  font-size: 2rem;
+}
+
+.starEmpty {
+  color: lightgray;
+  font-size: 2rem;
+}
+
+.buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+

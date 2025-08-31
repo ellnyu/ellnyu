@@ -1,5 +1,5 @@
 'use client';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import styles from "./Rating.module.scss";
 
@@ -12,9 +12,13 @@ type RatingProps = {
 export default function Rating({ initialRating = 0, maxRating = 5, onChange }: RatingProps) {
   const [rating, setRating] = useState(initialRating);
 
+  useEffect(() => {
+    setRating(initialRating);
+  }, [initialRating]);
+
   const handleClick = (index: number) => {
     setRating(index);
-    if (onChange) onChange(index);
+    onChange?.(index);
   };
 
   return (

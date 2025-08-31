@@ -9,6 +9,7 @@ import (
 	"github.com/ellnyu/ellnyu/backend/internal/books"
 	"github.com/ellnyu/ellnyu/backend/internal/instagram"
 	"github.com/ellnyu/ellnyu/backend/internal/messages"
+	"github.com/ellnyu/ellnyu/backend/internal/recipes"
 	"github.com/ellnyu/ellnyu/backend/internal/suggestions"
 	"github.com/ellnyu/ellnyu/backend/internal/travels"
 	"github.com/gorilla/mux"
@@ -50,6 +51,11 @@ func NewRouter(cfg config.Config) http.Handler {
 	r.HandleFunc("/books", auth.RequireAuth(books.CreateBookHandler)).Methods(http.MethodPost)
 	r.HandleFunc("/books/delete", auth.RequireAuth(books.DeleteBookHandler))
 
+	// Recipes
+	r.HandleFunc("/recipes", recipes.GetRecipesHandler).Methods(http.MethodGet)
+	r.HandleFunc("/recipes", auth.RequireAuth(recipes.CreateRecipeHandler)).Methods(http.MethodPost)
+	r.HandleFunc("/recipes/rating", recipes.InsertRatingHandler).Methods(http.MethodPost)
+
 	// CORS
 	c := cors.New(cors.Options{
 		AllowedOrigins: []string{
@@ -63,4 +69,3 @@ func NewRouter(cfg config.Config) http.Handler {
 
 	return c.Handler(r)
 }
-

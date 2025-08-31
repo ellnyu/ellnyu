@@ -1,0 +1,134 @@
+@use '@/styles/variables' as vars;
+
+.pageContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.pageTitle {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.cardsContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+
+.card {
+  background-color: #fff8f0; // light cream
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+}
+
+.bookTitle {
+  font-size: 1.45rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.bookAuthor {
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 1rem;
+}
+
+.review {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 1rem;
+}
+
+.rating {
+  display: flex;
+  justify-content: center;
+  gap: 0.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.filledIcon {
+  width: 24px;
+  height: 24px;
+}
+
+.emptyIcon {
+  width: 24px;
+  height: 24px;
+  opacity: 0.3;
+}
+
+.readDate {
+  font-size: 0.9rem;
+  color: #888;
+    margin-top: auto; // pushes it to the bottom
+}
+.adminButtons {
+  margin-top: 2rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+
+  button {
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+  }
+}
+
+  .filterBar {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+
+    .filters {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+
+      strong {
+        margin-right: 0.5rem;
+      }
+      button {
+        &:hover {
+          background: vars.$color-lavender;
+        }
+
+        &.active {
+          background: vars.$color-slate;
+          color: vars.$color-cream;
+        }
+      }
+    }
+  }
+

@@ -32,7 +32,6 @@ const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
 
   try {
-    // ✅ Build the payload with conversions
     const payload = camelToSnake({
       title,
       author,
