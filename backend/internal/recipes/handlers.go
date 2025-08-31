@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 	"time"
@@ -22,65 +23,100 @@ func (jt JSONTime) MarshalJSON() ([]byte, error) {
 	return json.Marshal(jt.Time)
 }
 
-type Recipe struct {
-	ID          int           `json:"id"`
-	Name        string        `json:"name"`
-	RecipeURL   string        `json:"recipeUrl"`
-	Rating      sql.NullInt32 `json:"rating"`
-	TriedDate   JSONTime      `json:"triedDate"`
-	CreatedDate time.Time     `json:"createdAt"`
-	Category    string        `json:"category"`
+func CreateRecipe(input RecipeInput) (int, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	tx, err := db.Pool.Begin(ctx)
+	if err != nil {
+		return -1, fmt.Errorf("failed to start tx: %w", err)
+	}
+	defer tx.Rollback(ctx) // rollback if anything fails
+
+	// 1. Insert the post
+	var recipeID int
+	err = tx.QueryRow(ctx, `
+		INSERT INTO ellnyu.recipes (name, recipe_url)
+		VALUES ($1, $2)
+		RETURNING ID
+	`, input.Name, input.RecipeURL).Scan(&recipeID)
+	if err != nil {
+		return -1, fmt.Errorf("failed to insert blogpost: %w", err)
+	}
+
+	var catID int
+	err = tx.QueryRow(ctx, `
+		INSERT INTO ellnyu.category (category)
+		VALUES ($1)
+		ON CONFLICT (category) DO UPDATE SET category=EXCLUDED.category
+		RETURNING id
+	`, input.Category).Scan(&catID)
+	if err != nil {
+		return -1, fmt.Errorf("failed to insert/get category: %w", err)
+	}
+
+	_, err = tx.Exec(ctx, `
+		INSERT INTO ellnyu.recipe_categories (recipe_id, category_id)
+		VALUES ($1, $2)
+		ON CONFLICT DO NOTHING
+	`, recipeID, catID)
+	if err != nil {
+		return -1, fmt.Errorf("failed to link category: %w", err)
+	}
+
+	for _, img := range input.Images {
+		var imgID int
+		err = tx.QueryRow(ctx, `
+        INSERT INTO ellnyu.images (url)
+        VALUES ($1)
+        ON CONFLICT (url) DO UPDATE SET url = EXCLUDED.url
+        RETURNING id
+    `, img.Url).Scan(&imgID)
+		if err != nil {
+			return -1, fmt.Errorf("failed to insert image: %w", err)
+		}
+
+		_, err = tx.Exec(ctx, `
+        INSERT INTO ellnyu.recipe_images (recipe_id, image_id)
+        VALUES ($1, $2)
+        ON CONFLICT DO NOTHING
+    `, recipeID, imgID)
+		if err != nil {
+			return -1, fmt.Errorf("failed to link image: %w", err)
+		}
+	}
+
+	// Commit everything
+	if err := tx.Commit(ctx); err != nil {
+		return -1, fmt.Errorf("failed to commit: %w", err)
+	}
+
+	return recipeID, nil
 }
 
 func CreateRecipeHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
 		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
-		log.Println("CreateRecipeHandler: method not allowed", r.Method)
+		log.Println("CreateSuggestionHandler: method not allowed", r.Method)
 		return
 	}
-
-	var input struct {
-		ID        int       `json:"id"`
-		Name      string    `json:"name"`
-		RecipeURL string    `json:"recipeUrl"`
-		TriedDate time.Time `json:"triedDate"`
-	}
-
+	var input RecipeInput
 	if err := json.NewDecoder(r.Body).Decode(&input); err != nil {
 		http.Error(w, "invalid request body", http.StatusBadRequest)
 		log.Println("CreateSuggestionHandler: failed to decode body:", err)
 		return
 	}
 
-	log.Println("CreateRecipesHandler: received suggestion:", input.Name)
-
-	// Insert into DB
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-	defer cancel()
-
-	var recipe Recipe
-
-	query := `
-		INSERT INTO ellnyu.recipes (name, recipe_url)
-		VALUES ($1, $2)
-		RETURNING ID, name
-	`
-	err := db.Pool.QueryRow(ctx, query,
-		input.Name, input.RecipeURL,
-	).Scan(&recipe.ID, &recipe.Name)
+	_, err := CreateRecipe(input)
 
 	if err != nil {
-		http.Error(w, "failed to insert review: "+err.Error(), http.StatusInternalServerError)
-		log.Println("CreateRecipeHandler: DB insert error:", err)
-		return
+		log.Printf("Somethiing fsiled %v", err)
 	}
-
-	log.Println("CreateRecipeHandler: inserted suggestion with ID:", recipe.ID)
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(input)
-}
 
+}
 func GetRecipesHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodGet {
 		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)

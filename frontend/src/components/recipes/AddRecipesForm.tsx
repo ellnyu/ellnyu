@@ -54,6 +54,8 @@ export default function AddRecipe({ isOpen, onClose, onRecipeAdded }: AddRecipes
         images,
     };
 
+    console.log(payload);
+
       await authPost("/recipes", payload);
 
       onRecipeAdded();   // refresh list in parent
