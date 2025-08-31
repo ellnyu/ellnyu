@@ -9,7 +9,7 @@ type Props = {
   onClose: () => void;
   recipe: {
     name: string;
-    recipeUrl: string;
+    recipeUrl?: string;
     rating: number;
     triedDate?: string;
     category?: string;
@@ -27,9 +27,13 @@ export default function RandomRecipeModal({ isOpen, onClose, recipe }: Props) {
         </p>
         <p>
           URL:{" "}
-          <a href={recipe.recipeUrl} target="_blank" rel="noopener noreferrer">
-            {recipe.recipeUrl}
-          </a>
+          {recipe.recipeUrl ? (
+            <a href={recipe.recipeUrl} target="_blank" rel="noopener noreferrer">
+              {recipe.recipeUrl}
+            </a>
+          ) : (
+            "Ingen URL"
+          )}
         </p>
         <div className={styles.rating}>
           {Array.from({ length: 5 }).map((_, i) => (
