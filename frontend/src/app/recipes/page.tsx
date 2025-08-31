@@ -6,6 +6,7 @@ import Image from "next/image";
 import AddRecipeForm from "@/components/recipes/AddRecipesForm";
 import DeleteRecipeModal from "@/components/recipes/DeleteRecipeModal";
 import AddRatingModal from "@/components/recipes/AddRating";
+import RandomRecipeModal from "@/components/recipes/RandomRecipeModal";
 import { apiGet } from "@/utils/api";
 import { snakeToCamel } from "@/utils/caseHelpers";
 import { useAuth } from "@/context/AuthContext";
@@ -16,7 +17,7 @@ type BackendRating = { Int32: number; Valid: boolean } | null;
 type BackendRecipe = {
   id?: number;
   name: string;
-  recipeUrl: string;
+  recipeUrl?: string;
   rating?: BackendRating;
   triedDate?: string;
   tags?: string[];
@@ -27,7 +28,7 @@ type BackendRecipe = {
 type Recipe = {
   id?: number;
   name: string;
-  recipeUrl: string;
+  recipeUrl?: string;
   rating: number; // always a number
   triedDate?: string;
   tags?: string[];
@@ -41,6 +42,7 @@ export default function RecipesPage() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [randomRecipe, setRandomRecipe] = useState<Recipe | null>(null);
 
   const categories = Array.from(new Set(recipes.map((r) => r.category).filter(Boolean))) as string[];
 
@@ -67,6 +69,18 @@ export default function RecipesPage() {
     }
   };
 
+  const handleRandomRecipe = () => {
+  if (recipes.length === 0) return;
+
+  const filtered = selectedCategory
+    ? recipes.filter((r) => r.category === selectedCategory)
+    : recipes;
+
+  const randomIndex = Math.floor(Math.random() * filtered.length);
+  setRandomRecipe(filtered[randomIndex]);
+};
+
+
   useEffect(() => {
     fetchRecipes();
   }, []);
@@ -75,7 +89,6 @@ export default function RecipesPage() {
     <div className={styles.pageContainer}>
       <h1 className={styles.pageTitle}>Oppskrifter</h1>
 
-      {/* Category filter */}
       <div className={styles.filterBar}>
         <div className={styles.filters}>
           <strong>Kategorier</strong>
@@ -97,7 +110,10 @@ export default function RecipesPage() {
         </div>
       </div>
 
-      {/* Recipe cards */}
+      <button onClick={handleRandomRecipe} className={styles.randomButton}>
+        Velg en tilfeldig oppskrift
+      </button>
+
       <div className={styles.cardsContainer}>
         {filteredRecipes.length > 0 ? (
           filteredRecipes.map((recipe) => (
@@ -135,7 +151,6 @@ export default function RecipesPage() {
         )}
       </div>
 
-      {/* Admin buttons */}
       {isAdmin && (
         <div className={styles.adminButtons}>
           <button onClick={() => setShowAddModal(true)}>Legg til en oppskrift</button>
@@ -143,7 +158,6 @@ export default function RecipesPage() {
         </div>
       )}
 
-      {/* Add Recipe Modal */}
       <AddRecipeForm
         isOpen={showAddModal}
         onClose={() => setShowAddModal(false)}
@@ -169,6 +183,15 @@ export default function RecipesPage() {
           onUpdated={fetchRecipes}
         />
       )}
+
+      {randomRecipe && (
+        <RandomRecipeModal
+          isOpen={!!randomRecipe}
+          onClose={() => setRandomRecipe(null)}
+          recipe={randomRecipe}
+        />
+      )}
+
     </div>
   );
 }
