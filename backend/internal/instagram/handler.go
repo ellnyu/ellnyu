@@ -44,9 +44,9 @@ func StoriesHandler() http.HandlerFunc {
 		}
 		defer rows.Close()
 
-		var stories []Story
+		var stories []DBStory
 		for rows.Next() {
-			var s Story
+			var s DBStory
 			if err := rows.Scan(&s.ID, &s.MediaType, &s.MediaURL, &s.Timestamp, &s.Permalink, &s.Username, &s.Caption); err != nil {
 				http.Error(w, "failed to scan story", http.StatusInternalServerError)
 				return

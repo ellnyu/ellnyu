@@ -10,6 +10,7 @@ import (
 
 	"github.com/ellnyu/ellnyu/backend/config"
 	"github.com/ellnyu/ellnyu/backend/internal/db"
+	"github.com/ellnyu/ellnyu/backend/internal/instagram"
 	"github.com/ellnyu/ellnyu/backend/internal/server"
 	"github.com/joho/godotenv"
 )
@@ -47,6 +48,8 @@ func main() {
 		WriteTimeout: 10 * time.Second,
 		IdleTimeout:  120 * time.Second,
 	}
+	stop := make(chan struct{})
+	go instagram.PollInstagramStories(cfg, stop)
 
 	// Run
 	go func() {
@@ -57,10 +60,12 @@ func main() {
 	}()
 
 	// Graceful shutdown
-	stop := make(chan os.Signal, 1)
-	signal.Notify(stop, os.Interrupt)
-	<-stop
+	osStop := make(chan os.Signal, 1)
+	signal.Notify(osStop, os.Interrupt)
+	<-osStop
 	log.Println("Shutting down server...")
+
+	close(stop)
 
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
@@ -69,4 +74,3 @@ func main() {
 	}
 	log.Println("Server exited cleanly")
 }
-

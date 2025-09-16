@@ -27,7 +27,8 @@ const Navbar = () => {
 
       <ul className={`${styles.navLinks} ${isOpen ? styles.open : ""}`}>
         <li><Link href="/posts" onClick={handleClose}>Posts</Link></li>
-        <li><Link href="/suggestions" onClick={handleClose}>Forslaaag</Link></li>
+        <li><Link href="/stories" onClick={handleClose}>Stories</Link></li>
+        <li><Link href="/suggestions" onClick={handleClose}>Forslag</Link></li>
         <li><Link href="/blog" onClick={handleClose}>Innlegg</Link></li>
         <li><Link href="/books" onClick={handleClose}>Bøker</Link></li>
         <li><Link href="/messages" onClick={handleClose}>Meldinger</Link></li>
