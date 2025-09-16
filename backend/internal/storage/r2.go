@@ -11,8 +11,9 @@ import (
 )
 
 type R2 struct {
-	Client *minio.Client
-	Bucket string
+	Client   *minio.Client
+	Bucket   string
+	Endpoint string
 }
 
 func NewR2(endpoint, accessKey, secretKey, bucket string) (*R2, error) {
@@ -37,7 +38,7 @@ func NewR2(endpoint, accessKey, secretKey, bucket string) (*R2, error) {
 		log.Println("Created bucket:", bucket)
 	}
 
-	return &R2{Client: client, Bucket: bucket}, nil
+	return &R2{Client: client, Bucket: bucket, Endpoint: endpoint}, nil
 }
 
 func (r2 *R2) UploadStoryMedia(ctx context.Context, storyID string, mediaType string, url string) (string, error) {
@@ -72,7 +73,7 @@ func (r2 *R2) UploadStoryMedia(ctx context.Context, storyID string, mediaType st
 
 	// Public URL depends on how you configure R2 bucket
 	// (with a custom domain via Cloudflare Pages/Workers)
-	publicURL := fmt.Sprintf("https://%s.r2.cloudflarestorage.com/%s/%s", "<accountid>", r2.Bucket, objectName)
+	publicURL := fmt.Sprintf("%s/%s/%s", r2.Endpoint, r2.Bucket, objectName)
 
 	return publicURL, nil
 }
