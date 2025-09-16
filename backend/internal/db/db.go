@@ -39,6 +39,16 @@ func InitDB() error {
 		created_at TIMESTAMP DEFAULT NOW()
 	);
 
+	CREATE TABLE IF NOT EXISTS ellnyu.stories (
+    id TEXT PRIMARY KEY,              
+    media_type TEXT NOT NULL,
+    media_url TEXT NOT NULL,
+    timestamp TIMESTAMP NOT NULL,
+    permalink TEXT,
+    username TEXT,
+    caption TEXT
+    );
+
     CREATE TABLE IF NOT EXISTS ellnyu.travels (
         id SERIAL PRIMARY KEY,
         location TEXT NOT NULL,

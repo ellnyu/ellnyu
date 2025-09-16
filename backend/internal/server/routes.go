@@ -31,7 +31,7 @@ func NewRouter(cfg config.Config) http.Handler {
 
 	// Instagram routes
 	r.HandleFunc("/instagram/me", instagram.MeHandler(cfg))
-	r.HandleFunc("/instagram/stories", instagram.StoriesHandler(cfg))
+	r.HandleFunc("/instagram/stories", instagram.StoriesHandler())
 	r.HandleFunc("/instagram/posts", instagram.PostsHandler(cfg))
 
 	// Travels

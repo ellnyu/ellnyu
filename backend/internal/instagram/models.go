@@ -1,9 +1,13 @@
 package instagram
 
 type Story struct {
-	ID       string `json:"id"`
-	MediaURL string `json:"media_url"`
-	Caption  string `json:"caption,omitempty"`
+	ID        string `json:"id"`
+	MediaType string `json:"media_type"`
+	MediaURL  string `json:"media_url"`
+	Timestamp string `json:"timestamp"`
+	Permalink string `json:"permalink,omitempty"`
+	Username  string `json:"username,omitempty"`
+	Caption   string `json:"caption,omitempty"`
 }
 
 type StoriesResponse struct {
