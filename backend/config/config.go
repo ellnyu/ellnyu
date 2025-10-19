@@ -38,6 +38,7 @@ func Load() Config {
 	r2AccessID := os.Getenv("R2_ACCESS_ID")
 	r2Endpoint := os.Getenv("S3_API")
 	r2BucketName := os.Getenv("BUCKET_NAME")
+	r2PublicURL := os.Getenv("S3_API_PUBLIC_URL")
 
 	if dbURL == "" {
 		log.Fatal("DATABASE_URL not set")
@@ -56,7 +57,12 @@ func Load() Config {
 		r2AccessID,
 		r2AccessKey,
 		r2BucketName,
+		r2PublicURL,
 	)
+
+	if err != nil {
+		log.Fatalf("Failed to create R2 client: %v", err)
+	}
 
 	return Config{
 		InstagramToken:      token,

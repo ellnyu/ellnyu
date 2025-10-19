@@ -43,7 +43,7 @@ func insertStory(story Story) error {
 }
 
 func PollInstagramStories(cfg config.Config, stop <-chan struct{}) {
-	ticker := time.NewTicker(1 * time.Minute)
+	ticker := time.NewTicker(60 * time.Minute)
 
 	log.Println("calling Instagram API for stories")
 	defer ticker.Stop()
@@ -55,7 +55,7 @@ func PollInstagramStories(cfg config.Config, stop <-chan struct{}) {
 	for {
 		select {
 		case <-ticker.C:
-			fetchAndStoreStories(cfg) // <- this is your existing API fetcher
+			fetchAndStoreStories(cfg)
 
 		case <-stop:
 			log.Println("Stopping Instagram stories poller")

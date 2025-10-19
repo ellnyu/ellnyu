@@ -33,7 +33,7 @@ func StoriesHandler() http.HandlerFunc {
 		defer cancel()
 
 		rows, err := db.Pool.Query(ctx, `
-            SELECT id, media_type, media_url, timestamp, permalink, username, caption
+            SELECT id, media_type, media_url, timestamp, permalink, username, caption, local_path
             FROM ellnyu.stories
             ORDER BY timestamp DESC
         `)
@@ -47,7 +47,8 @@ func StoriesHandler() http.HandlerFunc {
 		var stories []DBStory
 		for rows.Next() {
 			var s DBStory
-			if err := rows.Scan(&s.ID, &s.MediaType, &s.MediaURL, &s.Timestamp, &s.Permalink, &s.Username, &s.Caption); err != nil {
+			if err := rows.Scan(&s.ID, &s.MediaType, &s.MediaURL, &s.Timestamp, &s.Permalink, &s.Username, &s.Caption, &s.LocalPath); err != nil {
+				log.Println("Scan error:", err)
 				http.Error(w, "failed to scan story", http.StatusInternalServerError)
 				return
 			}

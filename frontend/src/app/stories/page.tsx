@@ -9,7 +9,8 @@ type Story = {
   id: string;
   media_type: "IMAGE" | "VIDEO" | "CAROUSEL_ALBUM";
   media_url: string;
-  timestamp: string; // ISO date string
+  local_path: string;
+  timestamp: string;
   caption?: string;
   username?: string;
 };
@@ -55,7 +56,6 @@ export default function StoriesPage() {
     fetchStories();
   }, []);
 
-  // Extract years and months
   const years = Array.from(
     new Set(stories.map((s) => new Date(s.timestamp).getFullYear()))
   ).sort((a, b) => b - a);
@@ -63,7 +63,7 @@ export default function StoriesPage() {
   const filteredStories = stories.filter((story) => {
     const d = new Date(story.timestamp);
     const year = d.getFullYear();
-    const month = d.getMonth(); // 0–11
+    const month = d.getMonth();
 
     const yearMatch = selectedYear ? year === selectedYear : true;
     const monthMatch =
@@ -71,6 +71,21 @@ export default function StoriesPage() {
 
     return yearMatch && monthMatch;
   });
+
+  // Group by date string
+  const storiesByDate = filteredStories.reduce((acc, story) => {
+    const dateStr = new Date(story.timestamp).toLocaleDateString("no-NO", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+
+    if (!acc[dateStr]) acc[dateStr] = [];
+    acc[dateStr].push(story);
+    return acc;
+  }, {} as Record<string, Story[]>);
 
   return (
     <div className={styles.stories}>
@@ -92,7 +107,7 @@ export default function StoriesPage() {
               key={year}
               onClick={() => {
                 setSelectedYear(year);
-                setSelectedMonth(null); // reset month on year change
+                setSelectedMonth(null);
               }}
               className={selectedYear === year ? styles.active : ""}
             >
@@ -123,7 +138,7 @@ export default function StoriesPage() {
         )}
       </div>
 
-      {/* Story feed */}
+      {/* Story feed grouped by date */}
       <div className={styles.cards}>
         {loading && <p>Laster stories…</p>}
         {error && <p className={styles.error}>{error}</p>}
@@ -131,35 +146,35 @@ export default function StoriesPage() {
           <p>Ingen stories funnet.</p>
         )}
 
-        {filteredStories.map((story) => (
-          <div key={story.id} className={styles.card}>
-            <div className={styles.mediaWrapper}>
-              {story.media_type === "IMAGE" ||
-              story.media_type === "CAROUSEL_ALBUM" ? (
-                <img
-                  src={story.media_url}
-                  alt={story.caption || "Instagram story"}
-                  className={styles.storyImage}
-                />
-              ) : story.media_type === "VIDEO" ? (
-                <video controls className={styles.storyVideo}>
-                  <source src={story.media_url} type="video/mp4" />
-                </video>
-              ) : null}
-            </div>
-            <div className={styles.meta}>
-              <span>
-                {new Date(story.timestamp).toLocaleDateString("no-NO", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
-              </span>
-              {story.username && <span>@{story.username}</span>}
-            </div>
-            {story.caption && (
-              <p className={styles.caption}>{story.caption}</p>
-            )}
+        {Object.entries(storiesByDate).map(([date, stories]) => (
+          <div key={date}>
+            <h2 className={styles.storyDateHeader}>{date}</h2>
+            {stories.map((story) => (
+              <div key={story.id} className={styles.card}>
+                <div className={styles.mediaWrapper}>
+                  {story.mediaType === "IMAGE" ||
+                  story.mediaType === "CAROUSEL_ALBUM" ? (
+                    <img
+                      src={story.localPath}
+                      alt={story.caption || "Instagram story"}
+                      className={styles.storyImage}
+                      loading="lazy"
+                    />
+                  ) : story.mediaType === "VIDEO" ? (
+                    <video
+                      controls
+                      playsInline
+                      muted
+                      preload="metadata"
+                      className={styles.storyVideo}
+                    >
+                      <source src={story.localPath} type="video/mp4" />
+                      Din nettleser støtter ikke video.
+                    </video>
+                  ) : null}
+                </div>
+              </div>
+            ))}
           </div>
         ))}
       </div>

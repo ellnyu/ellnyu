@@ -38,7 +38,7 @@ export default function MessagesForm() {
           className={styles.input}
         />
         <textarea
-          placeholder="Melding du vil sende til din kjære"
+          placeholder="Melding du vil sende til meg (om du tørr?!) "
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           required

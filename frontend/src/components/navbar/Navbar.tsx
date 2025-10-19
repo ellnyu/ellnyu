@@ -29,11 +29,11 @@ const Navbar = () => {
         <li><Link href="/posts" onClick={handleClose}>Posts</Link></li>
         <li><Link href="/stories" onClick={handleClose}>Stories</Link></li>
         <li><Link href="/suggestions" onClick={handleClose}>Forslag</Link></li>
-        <li><Link href="/blog" onClick={handleClose}>Innlegg</Link></li>
+        {/*<li><Link href="/blog" onClick={handleClose}>Innlegg</Link></li>*/}
         <li><Link href="/books" onClick={handleClose}>Bøker</Link></li>
         <li><Link href="/messages" onClick={handleClose}>Meldinger</Link></li>
         <li><Link href="/travels" onClick={handleClose}>Reise</Link></li>
-        <li><Link href="/recipes" onClick={handleClose}>Oppskrifter</Link></li>
+        {/*<li><Link href="/recipes" onClick={handleClose}>Oppskrifter</Link></li>*/}
         <li><Link href="/about" onClick={handleClose}>Om meg</Link></li>
       </ul>
     </nav>
