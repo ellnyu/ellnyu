@@ -91,7 +91,7 @@ export default function StoriesPage() {
     <div className={styles.stories}>
     <h2 className={styles.pageTitle}>Stories publisert på Instagram</h2>
     <p>Samler alle stories jeg publiserer her slik at man kan scrolle seg gjennom det, uten å måtte klikke seg gjennom highlights for å finne
-      den ene storien som ligger midt i highlighten!!!</p>
+      den ene storien som ligger midt i highlighten!!! Sparer deg/meg for taps også kan vi heller scrolleeee yey</p>
       <div className={styles.filterBar}>
         <div className={styles.filters}>
           <strong>År</strong>

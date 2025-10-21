@@ -23,9 +23,14 @@ export default function About() {
 
           <div className={styles.bioAndLinks}>
             <p className={styles.biography}>
-            Hallaa, du fant sida mi! jeg aner ikke hva jeg driver med på nettsiden for dette er bare et hobbyprosjekt hvor jeg bare kuker rundt og har det gøy. Ikke særlig bra standard på noe som helst her, men jeg synes det er gøy og det er det som teller.. ehh ja kos deg på sida og skriv en melding da blir jeg glad heheh (for da vet jeg at databasen min faktisk funker?!)
+            Hallaa, du fant sida mi! jeg aner ikke hva jeg driver med på nettsiden for dette er bare et hobbyprosjekt
+              hvor jeg bare kuker rundt og har det gøy. Ikke særlig bra standard på noe som helst her, men jeg synes det er gøy
+            og det er det som teller.. ehh ja kos deg på sida og skriv en melding da blir jeg glad heheh (for da vet jeg at databasen min faktisk funker?!)
             </p>
 
+            <p className={styles.biography}>
+            Og for de som bryr seg om tech så har jeg skrevet backend i go og frontend i typescript/react med nextjs og sass.
+            </p>
             <div className={styles.socialLinks}>
   <Link
     href="https://www.instagram.com/ellnyu"
@@ -57,6 +62,8 @@ export default function About() {
     <span>LinkedIn</span>
   </Link>
 </div>
+
+      <p className={styles.smalltext}> (det er tragisk å linke til linkedin men idk jeg føler jeg må :(((( social pressure as)</p>
 
           </div>
         </div>

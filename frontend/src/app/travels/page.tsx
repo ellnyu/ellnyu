@@ -7,13 +7,11 @@ import "leaflet/dist/leaflet.css";
 import type { Icon } from "leaflet";
 import Papa from "papaparse";
 
-// Helpers (adjust paths)
 import { authPost, apiGet } from "@/utils/api";
 import { useAuth } from "@/context/AuthContext";
 import { snakeToCamel, camelToSnake } from "@/utils/caseHelpers";
 import { toIsoDateTime } from "@/utils/dateHelpers";
 
-// Dynamically import react-leaflet (client-only)
 const MapContainer = dynamic(() => import("react-leaflet").then((mod) => mod.MapContainer), { ssr: false });
 const TileLayer = dynamic(() => import("react-leaflet").then((mod) => mod.TileLayer), { ssr: false });
 const Marker = dynamic(() => import("react-leaflet").then((mod) => mod.Marker), { ssr: false });
@@ -145,8 +143,10 @@ export default function TravelsPage() {
     <div className={styles.appLayout}>
       <main className={styles.mainContent}>
         <h2>Mine reiser</h2>
+        <p className={styles.paragraph}>Fullstendig ukomplett side og liste, og den er ikke laget for å skryte eller noe. Isåfall kan du tolke hele nettsida mi som skryt men det er absolutt ikke poenget,
+          og jeg vet at vet å kommentere å si at det ikke er poenget så blir det på en måte poenget men det må være grenser. Jeg ville bare leke litt okeey...?
+        </p>
 
-        {/* Map Section */}
         <div className={styles.mapContainer}>
           <MapContainer center={[20, 0]} zoom={2} style={{ height: "500px", width: "100%" }}>
             <TileLayer
