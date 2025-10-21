@@ -2,8 +2,12 @@
 
   .stories {
     padding: 2rem;
+    text-align: center;
 
-    /* ---------- FILTER BAR ---------- */
+    .pageTitle {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
     .filterBar {
       display: flex;
       justify-content: space-between;
@@ -23,9 +27,8 @@
 
         button {
           padding: 0.4rem 0.8rem;
-          border: none;
+          border: 1px solid vars.$color-lavender;
           border-radius: 0.5rem;
-          background: vars.$color-cream;
           color: vars.$color-navy;
           cursor: pointer;
           transition: background 0.2s ease;
@@ -42,7 +45,6 @@
       }
     }
 
-    /* ---------- STORY FEED (Instagram-style) ---------- */
 .cards {
   display: flex;
   flex-direction: column;

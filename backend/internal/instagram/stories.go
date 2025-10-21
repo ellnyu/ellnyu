@@ -48,13 +48,10 @@ func PollInstagramStories(cfg config.Config, stop <-chan struct{}) {
 	log.Println("calling Instagram API for stories")
 	defer ticker.Stop()
 
-	defer ticker.Stop()
-
-	// Run once immediately
-
 	for {
 		select {
 		case <-ticker.C:
+			log.Println("polling Instagram API to get stories")
 			fetchAndStoreStories(cfg)
 
 		case <-stop:
@@ -69,7 +66,7 @@ func fetchAndStoreStories(cfg config.Config) {
 	userNumber := cfg.InstagramUserNumber
 
 	if token == "" {
-		log.Println("⚠️ Missing Instagram API credentials, skipping fetch")
+		log.Println("Missing Instagram API credentials, skipping fetch")
 		return
 	}
 
