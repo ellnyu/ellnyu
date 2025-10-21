@@ -6,7 +6,7 @@ const LandingPage: React.FC = () => {
     <div style={{ textAlign: "center", padding: "2rem" }}>
       <h1>Velkommen til mitt tragiske univers</h1>
       <p>
-        Bygget av meg, for meg og for andre interessenter som ønsker et innblikk i mitt tragiske liv, kode eller hva nå enn dette representerer.
+        Bygget av meg, for meg og for andre interessenter som ønsker et innblikk i mitt tragiske liv, min rævva kode eller hva nå enn dette representerer.
         Og jeg må rydde på siden jeg veeet men det er sååååå kjedeliiig hehehehhe
       </p>
     </div>
