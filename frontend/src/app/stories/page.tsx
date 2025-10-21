@@ -7,9 +7,9 @@ import { snakeToCamel } from "@/utils/caseHelpers";
 
 type Story = {
   id: string;
-  media_type: "IMAGE" | "VIDEO" | "CAROUSEL_ALBUM";
-  media_url: string;
-  local_path: string;
+  mediaType: "IMAGE" | "VIDEO" | "CAROUSEL_ALBUM";
+  mediaUrl: string;
+  localPath: string;
   timestamp: string;
   caption?: string;
   username?: string;
